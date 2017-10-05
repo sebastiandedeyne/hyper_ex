@@ -9,7 +9,7 @@ defmodule HyperEx.Mixfile do
       version: @version,
       elixir: "~> 1.5",
       start_permanent: Mix.env == :prod,
-      description: "A YAML front matter parser for Elixir.",
+      description: "A HyperScript clone written in Elixir.",
        package: package(),
        deps: deps(),
        docs: [extras: ["README.md"],
