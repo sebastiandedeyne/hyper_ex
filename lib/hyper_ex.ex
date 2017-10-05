@@ -1,6 +1,7 @@
 defmodule HyperEx do
   @moduledoc """
-  Documentation for HyperEx.
+  The root HyperEx module contains all publically exposed functions of this 
+  package.
   """
 
   alias HyperEx.Abbreviation
@@ -8,7 +9,7 @@ defmodule HyperEx do
   alias HyperEx.Util
 
   @doc """
-  The main HyperEx function to render html.
+  Render an abbreviation.
 
   ## Examples
 
@@ -20,6 +21,18 @@ defmodule HyperEx do
 
       iex> HyperEx.h("div#foo.bar")
       ~s{<div id="foo" class="bar"></div>}
+  """
+  def h(abbreviation) do
+    {tag, attrs} = Abbreviation.expand(abbreviation)
+
+    Renderer.render(tag, attrs, "")
+  end
+
+  @doc """
+  Render an abbreviation with children (a binary or list) or attributes (a 
+  keyword list).
+
+  ## Examples
 
       iex> HyperEx.h("div", "Hello world!")
       ~s{<div>Hello world!</div>}
@@ -29,16 +42,7 @@ defmodule HyperEx do
 
       iex> HyperEx.h("div", [class: "foo"])
       ~s{<div class="foo"></div>}
-
-      iex> HyperEx.h("div.foo", [class: "bar"], "Hello world!")
-      ~s{<div class="foo bar">Hello world!</div>}
-  """
-  def h(abbreviation) do
-    {tag, attrs} = Abbreviation.expand(abbreviation)
-
-    Renderer.render(tag, attrs, "")
-  end
-
+  """      
   def h(abbreviation, attrs_or_children) do
     {tag, abbreviation_attrs} = Abbreviation.expand(abbreviation)
 
@@ -48,6 +52,15 @@ defmodule HyperEx do
     end
   end
 
+  @doc """
+  Render an abbreviation with attributes (a keyword list) and children (a 
+  binary or list).
+
+  ## Examples
+
+      iex> HyperEx.h("div.foo", [class: "bar"], "Hello world!")
+      ~s{<div class="foo bar">Hello world!</div>}
+  """
   def h(abbreviation, attrs, children) do
     {tag, abbreviation_attrs} = Abbreviation.expand(abbreviation)
 
@@ -55,7 +68,7 @@ defmodule HyperEx do
   end
 
   @doc """
-  Render an opening tag, optionally with attributes.
+  Render an opening tag from an abbreviation.
 
   ## Examples
 
@@ -64,9 +77,6 @@ defmodule HyperEx do
 
       iex> HyperEx.open("div#foo")
       ~s{<div id="foo">}
-
-      iex> HyperEx.open("div#foo", [class: "bar"])
-      ~s{<div id="foo" class="bar">}
   """
   def open(abbreviation) do
     {tag, abbreviation_attrs} = Abbreviation.expand(abbreviation)
@@ -74,6 +84,14 @@ defmodule HyperEx do
     Renderer.open(tag, abbreviation_attrs)
   end
 
+  @doc """
+  Render an opening tag from an abbreviation with attributes.
+
+  ## Examples
+
+      iex> HyperEx.open("div#foo", [class: "bar"])
+      ~s{<div id="foo" class="bar">}
+  """
   def open(abbreviation, attrs) do
     {tag, abbreviation_attrs} = Abbreviation.expand(abbreviation)
 
@@ -81,7 +99,7 @@ defmodule HyperEx do
   end
 
   @doc """
-  Render an closing tag.
+  Render an closing tag from an abbreviation.
 
   ## Examples
 
@@ -98,17 +116,24 @@ defmodule HyperEx do
   end
 
   @doc """
-  Wrap a string in html. Behaves like `render` but expects children to be the 
-  first argument. Useful for piping.
+  Wrap children (a binary or list) in an abbreviation. Behaves like `h/2` but 
+  expects children to be the first argument. Useful for piping.
 
   ## Examples
 
       iex> HyperEx.h("div#foo") |> HyperEx.wrap("div#bar")
       ~s{<div id="bar"><div id="foo"></div></div>}
+  """
+  def wrap(contents, abbreviation), do: h(abbreviation, contents)
+
+  @doc """
+  Wrap children (a binary or list) in an abbreviation with attributes. Behaves 
+  like `h/3` but expects children to be the first argument. Useful for piping.
+
+  ## Examples
 
       iex> HyperEx.h("div#foo") |> HyperEx.wrap("div#bar", [class: "baz"])
       ~s{<div id="bar" class="baz"><div id="foo"></div></div>}
   """
-  def wrap(contents, abbreviation), do: h(abbreviation, contents)
   def wrap(contents, abbreviation, attrs), do: h(abbreviation, attrs, contents)
 end

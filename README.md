@@ -18,7 +18,7 @@ HyperEx.h("div#foo.bar", [class: "baz"], "Hello world!")
 ~s{<div class="bar baz" id="foo">Hello world!</div>}
 ```
 
-Besides `h`, HyperEx exposes a few more helper functions: `open`, `close` and `wrap`. Read the [docs](https://hex.pm/packages/hyper_ex) on Hex for a detailed overview.
+Besides `h`, HyperEx exposes a few more helper functions: `open`, `close` and `wrap`. Read the [API reference](https://hexdocs.pm/hyper_ex/HyperEx.html) for a detailed overview.
 
 ## Installation
 
