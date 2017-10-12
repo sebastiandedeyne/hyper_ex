@@ -32,12 +32,12 @@ defmodule HyperEx.Abbreviation do
 
   """
   def expand(abbreviation) do
-    # "div#foo.bar..baz"
-    # ["div", "#", "foo", ".", ".", "bar", ".", "baz"]
-    # ["div", "#foo", ".bar", ".", ".baz"]
-    # ["div", "#foo", ".bar", ".baz"]
-    # {"div", ["#foo", ".bar", ".baz"]}
-    # {"div", [id: "foo", class: "bar baz"]}
+    # abbreviation                  "div#foo.bar..baz"
+    # |> explode                    ["div", "#", "foo", ".", ".", "bar", ".", "baz"]
+    # |> regroup_separators         ["div", "#foo", ".bar", ".", ".baz"]
+    # |> reject_invalid_selectors   ["div", "#foo", ".bar", ".baz"]
+    # |> extract_tag                {"div", ["#foo", ".bar", ".baz"]}
+    # |> selectors_to_attributes    {"div", [id: "foo", class: "bar baz"]}
     abbreviation
     |> explode
     |> regroup_separators
