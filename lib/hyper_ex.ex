@@ -42,7 +42,7 @@ defmodule HyperEx do
 
       iex> HyperEx.h("div", [class: "foo"])
       ~s{<div class="foo"></div>}
-  """      
+  """
   def h(abbreviation, attrs_or_children) do
     {tag, abbreviation_attrs} = Abbreviation.expand(abbreviation)
 
