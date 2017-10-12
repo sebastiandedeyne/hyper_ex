@@ -8,7 +8,7 @@ defmodule HyperEx.Abbreviation do
   it's attributes (can contain an id and a class list).
 
   ## Examples
-  
+
       iex> HyperEx.Abbreviation.expand("div")
       {"div", []}
 
@@ -32,12 +32,18 @@ defmodule HyperEx.Abbreviation do
 
   """
   def expand(abbreviation) do
-    abbreviation                  # "div#foo.bar..baz"
-    |> explode                    # ["div", "#", "foo", ".", ".", "bar", ".", "baz"]
-    |> regroup_separators         # ["div", "#foo", ".bar", ".", ".baz"]
-    |> reject_invalid_selectors   # ["div", "#foo", ".bar", ".baz"]
-    |> extract_tag                # {"div", ["#foo", ".bar", ".baz"]}
-    |> selectors_to_attributes    # {"div", [id: "foo", class: "bar baz"]}
+    # "div#foo.bar..baz"
+    # ["div", "#", "foo", ".", ".", "bar", ".", "baz"]
+    # ["div", "#foo", ".bar", ".", ".baz"]
+    # ["div", "#foo", ".bar", ".baz"]
+    # {"div", ["#foo", ".bar", ".baz"]}
+    # {"div", [id: "foo", class: "bar baz"]}
+    abbreviation
+    |> explode
+    |> regroup_separators
+    |> reject_invalid_selectors
+    |> extract_tag
+    |> selectors_to_attributes
   end
 
   defp explode(abbreviation) do

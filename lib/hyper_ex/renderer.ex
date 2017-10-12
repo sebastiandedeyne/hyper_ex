@@ -2,8 +2,22 @@ defmodule HyperEx.Renderer do
   @moduledoc false
 
   @void_tags [
-    "area", "base", "br", "col", "embed", "hr", "img", "input", "keygen", 
-    "link", "menuitem", "meta", "param", "source", "track", "wbr",
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "keygen",
+    "link",
+    "menuitem",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr"
   ]
 
   def render(tag, attrs, _children) when tag in @void_tags do

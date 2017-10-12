@@ -22,7 +22,7 @@ defmodule HyperEx.Util do
       [class: "b", id: "c"]
   """
   def merge_attrs(a, b) do
-    Keyword.merge(a, b, &merge_attr/3) 
+    Keyword.merge(a, b, &merge_attr/3)
   end
 
   defp merge_attr(:class, c1, c2), do: "#{c1} #{c2}"
