@@ -28,7 +28,7 @@ defmodule HyperEx.Mixfile do
   defp package do
     [
       name: :hyper_ex,
-      files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
+      files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Sebastian De Deyne"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/sebastiandedeyne/hyper_ex"}
