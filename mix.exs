@@ -21,7 +21,6 @@ defmodule HyperEx.Mixfile do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     []
   end
@@ -36,7 +35,6 @@ defmodule HyperEx.Mixfile do
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:ex_doc, ">= 0.0.0", only: :dev}
